@@ -2,7 +2,6 @@ package Aoc2020Dec04
 
 import AdventReader
 
-
 val path1 = "src/AoCData/AoC2020Dec04"
 val adventReader1 = AdventReader()
 
@@ -16,7 +15,6 @@ fun splitNewline(): List<String> {
 }
 
 fun main(){
-   // println(splitNewline())
     // gör en map av splitNewline()
     val passportLists = splitNewline().map{it.split("\n").toMutableList()}
     val passportKeys = passportLists.map{ passport ->

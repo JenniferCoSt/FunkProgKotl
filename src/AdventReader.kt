@@ -7,5 +7,8 @@ class AdventReader {
 
     fun returnFile(path: String): List<String> = File(path).readLines()
 
+    fun returnFile2(path: String): List<String> = File(path).readLines()
+
+
 
 }
