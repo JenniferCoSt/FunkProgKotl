@@ -46,6 +46,10 @@ fun isValidEcl(str: String) = str in setOf("amb", "blu", "brn", "gry", "grn", "h
 
     }
 
+fun isValidPass(byr: Boolean,iyr: Boolean, eyr: Boolean, hgt: Boolean, hcl: Boolean, ecl: Boolean, pid: Boolean ): Boolean {
+    return byr && iyr && eyr && hgt && ecl && pid
+}
+
 
 fun main() {
     // slår ihop varje pass till en sträng där passen separaras av mellanslag
@@ -57,6 +61,33 @@ fun main() {
             key to value //parar ihop key med värde
         }
     }
+/*
+isValidPass(stringsToMap.filter{"byr" in it.keys}.forEach {isValidByr(it["byr"].toString())  },
+    stringsToMap.filter{"iyr" in it.keys }.forEach { println(isValidIyr(it["iyr"].toString())) },
+    stringsToMap.filter{"eyr" in it.keys}.forEach{println(isValidEyr(it["eyr"].toString())) },
+    stringsToMap.filter { "hgt" in it.keys }.forEach{ println(isValidHgt(it["hgt"].toString())) },
+    stringsToMap.filter{"hcl" in it.keys}.forEach{(isValidHcl(it["hcl"].toString())) },
+    stringsToMap.filter { "ecl" in it.keys }.forEach{(isValidEcl(it["ecl"].toString())) },
+    stringsToMap.filter {"pid" in it.keys}.forEach {(isValidPid(it["pid"].toString()))})
+ */
+
+    fun areAllFieldsValid(stringsToMap: List<Map<String, String>>): List<Map<String, String>> {
+        return stringsToMap.filter { passport ->
+            val isValidByr = "byr" in passport.keys && isValidByr(passport["byr"].toString())
+            val isValidIyr = "iyr" in passport.keys && isValidIyr(passport["iyr"].toString())
+            val isValidEyr = "eyr" in passport.keys && isValidEyr(passport["eyr"].toString())
+            val isValidHgt = "hgt" in passport.keys && isValidHgt(passport["hgt"].toString())
+            val isValidHcl = "hcl" in passport.keys && isValidHcl(passport["hcl"].toString())
+            val isValidEcl = "ecl" in passport.keys && isValidEcl(passport["ecl"].toString())
+            val isValidPid = "pid" in passport.keys && isValidPid(passport["pid"].toString())
+
+            isValidByr && isValidIyr && isValidEyr && isValidHgt && isValidHcl && isValidEcl && isValidPid
+        }
+    }
+
+    val validPassList = areAllFieldsValid(stringsToMap)
+    println(validPassList.size)
+
 
 
 
@@ -65,26 +96,10 @@ fun main() {
     //stringsToMap.filter{"iyr" in it.keys }.forEach { println(isValidIyr(it["iyr"].toString())) }
    // stringsToMap.filter{"eyr" in it.keys}.forEach{println(isValidEyr(it["eyr"].toString())) }
 //stringsToMap.filter { "hgt" in it.keys }.forEach{ println(isValidHgt(it["hgt"].toString())) }
-stringsToMap.filter{"hcl" in it.keys}.forEach{println(isValidHcl(it["hcl"].toString())) }
+//stringsToMap.filter{"hcl" in it.keys}.forEach{println(isValidHcl(it["hcl"].toString())) }
     // stringsToMap.filter { "ecl" in it.keys }.forEach{ println(isValidEcl(it["ecl"].toString())) }
    // stringsToMap.filter {"pid" in it.keys}.forEach {println(isValidPid(it["pid"].toString()))}
-    /*
 
 
- var randomNumber = (1..10).random()
-println(randomNumber)
-
-  val oneStringMap = passportLists1.split("\\s".toRegex())
-  val passportKeys1 = passportLists1.map { passport ->
-      passport.flatMap { it.split(" ") }.map { it.split(":")[0] }.toSet()
-  }
-  println(passportLists1)
-
-
-  val passportRequirements1 = setOf("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid")
-
-  val validPassports1 = passportKeys1.count { it.containsAll(passportRequirements1) }
-
-  println("Valid passports:  $validPassports1") */
 
 }
