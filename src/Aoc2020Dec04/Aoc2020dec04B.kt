@@ -88,9 +88,6 @@ isValidPass(stringsToMap.filter{"byr" in it.keys}.forEach {isValidByr(it["byr"].
     val validPassList = areAllFieldsValid(stringsToMap)
     println(validPassList.size)
 
-
-
-
 //högre ordningens funktion!!!
     //stringsToMap.filter{"byr" in it.keys}.forEach {println(isValidByr(it["byr"].toString()))  }
     //stringsToMap.filter{"iyr" in it.keys }.forEach { println(isValidIyr(it["iyr"].toString())) }
@@ -99,6 +96,5 @@ isValidPass(stringsToMap.filter{"byr" in it.keys}.forEach {isValidByr(it["byr"].
 //stringsToMap.filter{"hcl" in it.keys}.forEach{println(isValidHcl(it["hcl"].toString())) }
     // stringsToMap.filter { "ecl" in it.keys }.forEach{ println(isValidEcl(it["ecl"].toString())) }
    // stringsToMap.filter {"pid" in it.keys}.forEach {println(isValidPid(it["pid"].toString()))}
-
 
 }
