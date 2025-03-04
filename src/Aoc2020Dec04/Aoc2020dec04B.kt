@@ -101,5 +101,4 @@ isValidPass(stringsToMap.filter{"byr" in it.keys}.forEach {isValidByr(it["byr"].
    // stringsToMap.filter {"pid" in it.keys}.forEach {println(isValidPid(it["pid"].toString()))}
 
 
-
 }
