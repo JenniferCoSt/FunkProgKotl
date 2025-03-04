@@ -2,7 +2,7 @@ package Aoc2020Dec04
 
 import AdventReader
 
-val path2 = "src/AoCData/AoC2020Dec04b"
+val path2 = "src/AoCData/AoC2020Dec04"
 val adventReader2 = AdventReader()
 
 var adventInput2 = adventReader2.returnFile2(path2).joinToString("\n") //konverterar listan från List String till String för att kunna splitta den

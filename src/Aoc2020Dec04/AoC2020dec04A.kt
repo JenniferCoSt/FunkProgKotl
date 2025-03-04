@@ -7,11 +7,9 @@ val adventReader1 = AdventReader()
 
 var adventInput1 = adventReader1.returnFile(path1).joinToString("\n") //konverterar listan från List String för att kunna splitta den
 
-
 fun splitNewline(): List<String> {
     val regex = Regex("\n\n+")
     return adventInput1.split(regex)
-
 }
 
 fun main(){
