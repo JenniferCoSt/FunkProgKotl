@@ -18,7 +18,7 @@ class AoC2021Dec10 {
             for (char in line) {
                 when (char) {
                     '(', '[', '{', '<' -> stack.addLast(char)
-                    ')', ']', '}', '>' -> if(isCorrupted(stack, char)) {
+                    ')', ']', '}', '>' -> if (isCorrupted(stack, char)) {
                         corruptedChars.add(char)
                         break
                     }
@@ -28,21 +28,21 @@ class AoC2021Dec10 {
         return corruptedChars
     }
 
-fun findMatchingChar(openChar: Char, closeChar: Char): Boolean {
-    return when (openChar) {
-        '(' -> closeChar == ')'
-        '[' -> closeChar == ']'
-        '{' -> closeChar == '}'
-        '<' -> closeChar == '>'
-        else -> false
-    }
-}
-
     fun isCorrupted(stack: ArrayDeque<Char>, char: Char): Boolean {
-        if(stack.isEmpty()) return true
+        if (stack.isEmpty()) return true
 
         val openChar = stack.removeLast()
         return !findMatchingChar(openChar, char)
+    }
+
+    fun findMatchingChar(openChar: Char, closeChar: Char): Boolean {
+        return when (openChar) {
+            '(' -> closeChar == ')'
+            '[' -> closeChar == ']'
+            '{' -> closeChar == '}'
+            '<' -> closeChar == '>'
+            else -> false
+        }
     }
 
     fun getScore(chars: List<Char>): Int {
@@ -58,7 +58,6 @@ fun findMatchingChar(openChar: Char, closeChar: Char): Boolean {
         }
         return totalScore
     }
-
 }
 
 fun main() {
