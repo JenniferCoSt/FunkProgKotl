@@ -2,6 +2,7 @@ package AoC2020Dec06
 
 import AdventReader
 
+//Advent of Code 6 December 2020
 class AoC2020Dec06 {
     val pathS = "src/AoCData/AoC2020Dec6"
     val adventReader = AdventReader()
