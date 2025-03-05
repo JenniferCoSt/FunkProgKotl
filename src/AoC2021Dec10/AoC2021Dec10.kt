@@ -8,27 +8,56 @@ class AoC2021Dec10 {
 
     val advInput = advRader.returnData(pathC)
 
-    fun findCompleteLines(inputList: List<String>): List<String> {
-        var completedLines = mutableListOf<String>()
-        for (line in inputList) {
-            if (line.length % 2 != 0){
-                completedLines.add(line)
+
+    fun findCorruptedChar(dataList: List<String>): List<Char> {
+        val corruptedChars = mutableListOf<Char>()
+
+        val pairs = mapOf(
+            ')' to '(',
+            ']' to '[',
+            '}' to '{',
+            '>' to '<'
+        )
+
+        for (line in dataList) {
+            val stack = ArrayDeque<Char>()
+
+            for (char in line) {
+                when {
+                    char in "([{<" -> stack.addLast(char)
+                    char in ")]}>" -> {
+                        if (stack.isEmpty() || stack.removeLast() != pairs[char]) {
+                            corruptedChars.add(char)
+                            break
+                        }
+                    }
+                }
             }
         }
-        return completedLines
+        return corruptedChars
     }
 
-    //In progress
-    fun findCorruptingChar(corruptList: List<String>): Map<Char, Int> {
-        var corruptedMap = mutableMapOf<Char, Int>()
-
-        for (line in corruptList) {
-            line.toSet()
 
 
+    fun getScore(chars: List<Char>): Int {
+        var totalScore = 0
+
+        for (char in chars) {
+            when (char) {
+                ')' -> totalScore += 3
+                ']' -> totalScore += 57
+                '}' -> totalScore += 1197
+                '>' -> totalScore += 25137
+            }
         }
-        return corruptedMap
+        return totalScore
     }
 
+}
 
+fun main() {
+    val advent = AoC2021Dec10()
+
+    val charsList = advent.findCorruptedChar(advent.advInput)
+    print(advent.getScore(charsList))
 }
