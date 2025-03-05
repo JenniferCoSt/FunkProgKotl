@@ -9,7 +9,7 @@ class AoC2021Dec10 {
 
     val advInput = advRader.returnData(pathC)
 
-    //Tar emot listan med datat, går igenom varje rad i listan, skapar upp en Deque. Går sen in på varje tecken
+    //Tar emot listan med data, går igenom varje rad i listan, skapar upp en Deque. Går sen in på varje tecken
     // i varje rad. När det är ett öppningstecken så läggs det i Dequen, annars kollas om tecknet är ett
     // korrumperat tecken. Om det är korrumperat så läggs tecknet i listan corruptedChars. break finns för
     //avbryta sökandet i befintliga raden eftersom vi endast ska kolla första korrumperade tecknet enligt
