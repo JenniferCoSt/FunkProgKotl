@@ -77,6 +77,7 @@ isValidPass(stringsToMap.filter{"byr" in it.keys}.forEach {isValidByr(it["byr"].
     stringsToMap.filter {"pid" in it.keys}.forEach {(isValidPid(it["pid"].toString()))})
  */
 
+    
     fun areAllFieldsValid(stringsToMap: List<Map<String, String>>): List<Map<String, String>> {
         return stringsToMap.filter { passport ->
             val isValidByr = "byr" in passport.keys && isValidByr(passport["byr"].toString())
