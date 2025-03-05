@@ -28,14 +28,14 @@ class AoC2021Dec10 {
         return corruptedChars
     }
 
-    fun isCorrupted(stack: ArrayDeque<Char>, char: Char): Boolean {
+    private fun isCorrupted(stack: ArrayDeque<Char>, char: Char): Boolean {
         if (stack.isEmpty()) return true
 
         val openChar = stack.removeLast()
         return !findMatchingChar(openChar, char)
     }
 
-    fun findMatchingChar(openChar: Char, closeChar: Char): Boolean {
+    private fun findMatchingChar(openChar: Char, closeChar: Char): Boolean {
         return when (openChar) {
             '(' -> closeChar == ')'
             '[' -> closeChar == ']'
@@ -63,6 +63,7 @@ class AoC2021Dec10 {
 fun main() {
     val advent = AoC2021Dec10()
 
-    val charsList = advent.findCorruptedChars(advent.advInput)
-    print(advent.getScore(charsList))
+    //val charsList = advent.findCorruptedChars(advent.advInput)
+    //print(advent.getScore(charsList))
+    println(advent.getScore(advent.findCorruptedChars(advent.advInput)))
 }
