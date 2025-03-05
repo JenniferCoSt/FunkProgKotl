@@ -42,7 +42,7 @@ fun findMatchingChar(openChar: Char, closeChar: Char): Boolean {
         if(stack.isEmpty()) return true
 
         val openChar = stack.removeLast()
-        return !findMatchingChar(openChar, openChar)
+        return !findMatchingChar(openChar, char)
     }
 
     fun getScore(chars: List<Char>): Int {
