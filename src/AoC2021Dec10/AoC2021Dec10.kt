@@ -10,8 +10,10 @@ class AoC2021Dec10 {
     val advInput = advRader.returnData(pathC)
 
     //Tar emot listan med datat, går igenom varje rad i listan, skapar upp en Deque. Går sen in på varje tecken
-    // i varje rad. När det är ett öppningstecken så läggs det i Dequen, annars kollas om det är ett korrumperat
-    //tecken. Om det är korrumperat så läggs tecknet i Dequen.
+    // i varje rad. När det är ett öppningstecken så läggs det i Dequen, annars kollas om tecknet är ett
+    // korrumperat tecken. Om det är korrumperat så läggs tecknet i listan corruptedChars. break finns för
+    //avbryta sökandet i befintliga raden eftersom vi endast ska kolla första korrumperade tecknet enligt
+    // uppgiftsspecifikationen.
     fun findCorruptedChars(dataList: List<String>): List<Char> {
         val corruptedChars = mutableListOf<Char>()
 
@@ -31,25 +33,25 @@ class AoC2021Dec10 {
         return corruptedChars
     }
 
-    private fun isCorrupted(stack: ArrayDeque<Char>, char: Char): Boolean {
+    //Tar in en Deque med chars och char att kontrollera från metod ovan. Om Dequen är tom så returneras true
+    //(tecknet är korrumperat), annars kontrolleras inskickade tecknet mot det senaste tecknet i Dequen.
+    //Om det inte matchar öppningstecknet så är tecknet korrumperat och metoden returnerar true,
+    // annars returneras false.
+    private fun isCorrupted(stack: ArrayDeque<Char>, closingChar: Char): Boolean {
         if (stack.isEmpty()) return true
 
         val openChar = stack.removeLast()
         return when (openChar) {
-            '(' -> char != ')'
-            '[' -> char != ']'
-            '{' -> char != '}'
-            '<' -> char != '>'
+            '(' -> closingChar != ')'
+            '[' -> closingChar != ']'
+            '{' -> closingChar != '}'
+            '<' -> closingChar != '>'
             else -> false
         }
     }
 
- /*   private fun findMatchingChar(openChar: Char, closeChar: Char): Boolean {
-
-    }
-
-  */
-
+    //Listan med korrumperade tecken skickas in, för varje tecken kollas poäng och adderas till totalsumman
+    // som sen returneras.
     fun getScore(chars: List<Char>): Int {
         var totalScore = 0
 
