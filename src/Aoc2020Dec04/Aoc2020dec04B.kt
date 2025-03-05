@@ -15,7 +15,13 @@ fun splitNewline1(): List<String> {
 }
 //funktioner för att validera passen enligt värden
 
-fun isValidByr(str: String) = str.toInt() in 1920..2002
+fun isValidByr(str: String): Boolean{
+    val convertedString = str.toInt()
+    if(convertedString in 1920..2002)
+        return true
+    else
+        return false
+}
 
 
 fun isValidIyr(str: String) = str.toInt() in 2010..2020
@@ -32,7 +38,7 @@ fun isValidHcl(str: String): Boolean {
 
 fun isValidEcl(str: String) = str in setOf("amb", "blu", "brn", "gry", "grn", "hzl", "oth")
 
-    fun isValidHgt(str: String): Boolean {
+    fun isValidHgt(str: String): Boolean { //korta ner??
         return if (str.last().equals('m') && str.substringBeforeLast("cm").toInt() in 150..193)
             true
         else if (str.last().equals('n') && str.substringBeforeLast("in").toInt() in 59..76)
@@ -61,7 +67,7 @@ fun main() {
             key to value //parar ihop key med värde
         }
     }
-/*
+/*    Vi testade våra metoder via dessa separata entries som inparameter, där vi fick tillbaka true eller false.
 isValidPass(stringsToMap.filter{"byr" in it.keys}.forEach {isValidByr(it["byr"].toString())  },
     stringsToMap.filter{"iyr" in it.keys }.forEach { println(isValidIyr(it["iyr"].toString())) },
     stringsToMap.filter{"eyr" in it.keys}.forEach{println(isValidEyr(it["eyr"].toString())) },
@@ -86,15 +92,32 @@ isValidPass(stringsToMap.filter{"byr" in it.keys}.forEach {isValidByr(it["byr"].
     }
 
     val validPassList = areAllFieldsValid(stringsToMap)
-    println(validPassList.size)
+    //println(validPassList.size)
 
-//högre ordningens funktion!!!
-    //stringsToMap.filter{"byr" in it.keys}.forEach {println(isValidByr(it["byr"].toString()))  }
-    //stringsToMap.filter{"iyr" in it.keys }.forEach { println(isValidIyr(it["iyr"].toString())) }
-   // stringsToMap.filter{"eyr" in it.keys}.forEach{println(isValidEyr(it["eyr"].toString())) }
-//stringsToMap.filter { "hgt" in it.keys }.forEach{ println(isValidHgt(it["hgt"].toString())) }
-//stringsToMap.filter{"hcl" in it.keys}.forEach{println(isValidHcl(it["hcl"].toString())) }
-    // stringsToMap.filter { "ecl" in it.keys }.forEach{ println(isValidEcl(it["ecl"].toString())) }
-   // stringsToMap.filter {"pid" in it.keys}.forEach {println(isValidPid(it["pid"].toString()))}
+    //version med Högre ordningens funktion
+    fun areAllFieldsValid2(stringsToMap: List<Map<String, String>>): List<Map<String, String>> {
+        // Detta är vår högre ordningens funktion som tar ett fältnamn och en valideringsfunktion
+        // och returnerar en funktion som validerar ett specifikt fält i ett pass
+        fun validateField(field: String, validator: (String) -> Boolean): (Map<String, String>) -> Boolean =
+            { passport -> field in passport.keys && validator(passport[field].toString()) }
+
+        // Skapa en lista av alla valideringsfunktioner
+        val validations = listOf(
+            validateField("byr", ::isValidByr),
+            validateField("iyr", ::isValidIyr),
+            validateField("eyr", ::isValidEyr),
+            validateField("hgt", ::isValidHgt),
+            validateField("hcl", ::isValidHcl),
+            validateField("ecl", ::isValidEcl),
+            validateField("pid", ::isValidPid)
+        )
+
+        return stringsToMap.filter { passport ->
+            validations.all { validation -> validation(passport) }
+        }
+    }
+
+    println(areAllFieldsValid2(stringsToMap).count())
+
 
 }

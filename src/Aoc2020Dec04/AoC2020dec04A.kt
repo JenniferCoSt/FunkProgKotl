@@ -5,7 +5,8 @@ import AdventReader
 val path1 = "src/AoCData/AoC2020Dec04"
 val adventReader1 = AdventReader()
 
-var adventInput1 = adventReader1.returnFile(path1).joinToString("\n") //konverterar listan från List String för att kunna splitta den
+var adventInput1 = adventReader1.returnFile(path1).joinToString("\n") //konverterar listan från
+// List String för att kunna splitta den
 
 fun splitNewline(): List<String> {
     val regex = Regex("\n\n+")
@@ -19,7 +20,7 @@ fun main(){
         passport.flatMap { it.split(" ")}.map{it.split(":")[0]}.toSet()
     }
 
-    val passportRequirements = setOf("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid")
+    val passportRequirements = setOf("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid") //förenkla denna mer till java
 
     val validPassports=passportKeys.count{it.containsAll(passportRequirements)}
 
