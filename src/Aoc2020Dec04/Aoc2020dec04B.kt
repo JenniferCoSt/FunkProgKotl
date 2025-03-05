@@ -4,57 +4,58 @@ import AdventReader
 
 val path2 = "src/AoCData/AoC2020Dec04"
 val adventReader2 = AdventReader()
+//konverterar listan från List String till String separerad med radbrytningar för att kunna splitta den sen
+var adventInput2 = adventReader2.returnFile2(path2).joinToString("\n")
 
-var adventInput2 = adventReader2.returnFile2(path2).joinToString("\n") //konverterar listan från List String till String för att kunna splitta den
 
-
+//regex separerar varje pass i en lista baserat på att de är åtskilda av två radbrytningar
 fun splitNewline1(): List<String> {
-    val regex = Regex("\n\n+")
+    val regex = Regex("\n\n")
     return adventInput1.split(regex)
-
+//varje rad blir en sträng i listan
 }
 //funktioner för att validera passen enligt värden
 
+//Valideringafunktioner för datat i passen
+
+//validerar födelseår-värdet
 fun isValidByr(str: String): Boolean{
-    val convertedString = str.toInt()
+    val convertedString = str.toInt()//konverterar string till int och kontrollerar intervallet
     if(convertedString in 1920..2002)
         return true
     else
         return false
 }
 
-
+//kontrollerar utfädelseår och utgångsår genom samma metoder som ovan
 fun isValidIyr(str: String) = str.toInt() in 2010..2020
 
-
 fun isValidEyr(str: String) = str.toInt() in 2020..2030
-
+//kontrollerar hårfärg. Kontrollerar om strängen har #, har 7 tecken och 9 hexadecimala siffror
 fun isValidHcl(str: String): Boolean {
     if(str.startsWith("#") && str.length == 7){
         return str.drop(1).all{it in 'a'..'f'||it in '0'..'9'}
     }
     return false
 }
-
+//värdet måste vara en av dessa tillåtna ögonfärgerna
 fun isValidEcl(str: String) = str in setOf("amb", "blu", "brn", "gry", "grn", "hzl", "oth")
 
-    fun isValidHgt(str: String): Boolean { //korta ner??
+//kontrollerar om längden slutar på cm och inom en viss range
+    fun isValidHgt(str: String): Boolean {
         return if (str.last().equals('m') && str.substringBeforeLast("cm").toInt() in 150..193)
-            true
+            true //kontrollerar om längden är in och längd inom range
         else if (str.last().equals('n') && str.substringBeforeLast("in").toInt() in 59..76)
             true
         else false
     }
-
+//kollar pss-id:t. Det behöver vara exakt 9 siffror.
     fun isValidPid(str: String): Boolean {
         val num = str.toLongOrNull() ?: return false
         return str.length == 9 && num in 0..999999999
 
     }
 
-fun isValidPass(byr: Boolean,iyr: Boolean, eyr: Boolean, hgt: Boolean, hcl: Boolean, ecl: Boolean, pid: Boolean ): Boolean {
-    return byr && iyr && eyr && hgt && ecl && pid
-}
 
 
 fun main() {
@@ -68,7 +69,7 @@ fun main() {
         }
     }
 /*    Vi testade våra metoder via dessa separata entries som inparameter, där vi fick tillbaka true eller false.
-isValidPass(stringsToMap.filter{"byr" in it.keys}.forEach {isValidByr(it["byr"].toString())  },
+   stringsToMap.filter{"byr" in it.keys}.forEach {isValidByr(it["byr"].toString())  },
     stringsToMap.filter{"iyr" in it.keys }.forEach { println(isValidIyr(it["iyr"].toString())) },
     stringsToMap.filter{"eyr" in it.keys}.forEach{println(isValidEyr(it["eyr"].toString())) },
     stringsToMap.filter { "hgt" in it.keys }.forEach{ println(isValidHgt(it["hgt"].toString())) },
@@ -77,7 +78,7 @@ isValidPass(stringsToMap.filter{"byr" in it.keys}.forEach {isValidByr(it["byr"].
     stringsToMap.filter {"pid" in it.keys}.forEach {(isValidPid(it["pid"].toString()))})
  */
 
-    
+    //validerar alla fält i passen, filtrerar bort pass som saknar något fält eller har felaktiga värden
     fun areAllFieldsValid(stringsToMap: List<Map<String, String>>): List<Map<String, String>> {
         return stringsToMap.filter { passport ->
             val isValidByr = "byr" in passport.keys && isValidByr(passport["byr"].toString())
@@ -91,7 +92,7 @@ isValidPass(stringsToMap.filter{"byr" in it.keys}.forEach {isValidByr(it["byr"].
             isValidByr && isValidIyr && isValidEyr && isValidHgt && isValidHcl && isValidEcl && isValidPid
         }
     }
-
+    //räknar och skriver ut antalet giltiga pass med båda valideringsfunktionerna.
     val validPassList = areAllFieldsValid(stringsToMap)
     //println(validPassList.size)
 
@@ -117,7 +118,7 @@ isValidPass(stringsToMap.filter{"byr" in it.keys}.forEach {isValidByr(it["byr"].
             validations.all { validation -> validation(passport) }
         }
     }
-
+//räknar alla antal pass med valideringsfunktionerna
     println(areAllFieldsValid2(stringsToMap).count())
 
 

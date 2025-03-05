@@ -9,7 +9,7 @@ var adventInput1 = adventReader1.returnFile(path1).joinToString("\n") //konverte
 // List String till String och splittar den, varje rad från filen separeras med en newline.
 
 fun splitNewline(): List<String> { //denna metod använder Regular Expression för att dela upp strängen där det finns två
-    val regex = Regex("\n\n+") //eller fler newlines. Där delas passen upp mellan varandra.
+    val regex = Regex("\n\n") //eller fler newlines. Där delas passen upp mellan varandra.
     return adventInput1.split(regex) //detta blir en lista med varje pass som en sträng i listan.
 }
 
