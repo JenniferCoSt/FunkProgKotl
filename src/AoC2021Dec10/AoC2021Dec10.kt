@@ -9,27 +9,18 @@ class AoC2021Dec10 {
     val advInput = advRader.returnData(pathC)
 
 
-    fun findCorruptedChar(dataList: List<String>): List<Char> {
+    fun findCorruptedChars(dataList: List<String>): List<Char> {
         val corruptedChars = mutableListOf<Char>()
-
-        val pairs = mapOf(
-            ')' to '(',
-            ']' to '[',
-            '}' to '{',
-            '>' to '<'
-        )
 
         for (line in dataList) {
             val stack = ArrayDeque<Char>()
 
             for (char in line) {
-                when {
-                    char in "([{<" -> stack.addLast(char)
-                    char in ")]}>" -> {
-                        if (stack.isEmpty() || stack.removeLast() != pairs[char]) {
-                            corruptedChars.add(char)
-                            break
-                        }
+                when (char) {
+                    '(', '[', '{', '<' -> stack.addLast(char)
+                    ')', ']', '}', '>' -> if(isCorrupted(stack, char)) {
+                        corruptedChars.add(char)
+                        break
                     }
                 }
             }
@@ -37,7 +28,22 @@ class AoC2021Dec10 {
         return corruptedChars
     }
 
+fun findMatchingChar(openChar: Char, closeChar: Char): Boolean {
+    return when (openChar) {
+        '(' -> closeChar == ')'
+        '[' -> closeChar == ']'
+        '{' -> closeChar == '}'
+        '<' -> closeChar == '>'
+        else -> false
+    }
+}
 
+    fun isCorrupted(stack: ArrayDeque<Char>, char: Char): Boolean {
+        if(stack.isEmpty()) return true
+
+        val openChar = stack.removeLast()
+        return !findMatchingChar(openChar, openChar)
+    }
 
     fun getScore(chars: List<Char>): Int {
         var totalScore = 0
@@ -58,6 +64,6 @@ class AoC2021Dec10 {
 fun main() {
     val advent = AoC2021Dec10()
 
-    val charsList = advent.findCorruptedChar(advent.advInput)
+    val charsList = advent.findCorruptedChars(advent.advInput)
     print(advent.getScore(charsList))
 }
