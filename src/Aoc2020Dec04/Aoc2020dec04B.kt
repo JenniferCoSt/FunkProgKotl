@@ -31,6 +31,7 @@ fun isValidByr(str: String): Boolean{
 fun isValidIyr(str: String) = str.toInt() in 2010..2020
 
 fun isValidEyr(str: String) = str.toInt() in 2020..2030
+
 //kontrollerar hårfärg. Kontrollerar om strängen har #, har 7 tecken och 9 hexadecimala siffror
 fun isValidHcl(str: String): Boolean {
     if(str.startsWith("#") && str.length == 7){
@@ -92,9 +93,9 @@ fun main() {
             isValidByr && isValidIyr && isValidEyr && isValidHgt && isValidHcl && isValidEcl && isValidPid
         }
     }
-    //räknar och skriver ut antalet giltiga pass med båda valideringsfunktionerna.
+    //räknar och skriver ut antalet giltiga pass
     val validPassList = areAllFieldsValid(stringsToMap)
-    //println(validPassList.size)
+    println(validPassList.size)
 
     //version med Högre ordningens funktion
     fun areAllFieldsValid2(stringsToMap: List<Map<String, String>>): List<Map<String, String>> {
@@ -119,7 +120,7 @@ fun main() {
         }
     }
 //räknar alla antal pass med valideringsfunktionerna
-    println(areAllFieldsValid2(stringsToMap).count())
+   // println(areAllFieldsValid2(stringsToMap).count())
 
 
 }
