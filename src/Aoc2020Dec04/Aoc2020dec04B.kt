@@ -65,8 +65,8 @@ fun main() {
     // slår ihop varje pass till en sträng där passen separaras av mellanslag
     val passportStrings = splitNewline1().map { it.replace("\n", " ") }
     // gör en map av strängarna och delar dem mellan kolon
-    val stringsToMap = passportStrings.map { passport ->
-        passport.split(" ").associate { //associate omvandlar listan nyckel:värde till en Map<String, String>
+    val stringsToMap = passportStrings.map { passport -> passport.split(" ")
+            .associate { //associate omvandlar listan nyckel:värde till en Map<String, String>
             val (key, value) = it.split(":") //delar upp key värde genom vad som finns före och efter kolon
             key to value //parar ihop key med värde
         }
@@ -82,8 +82,8 @@ fun main() {
      */
 
     //validerar alla fält i passen, filtrerar bort pass som saknar något fält eller har felaktiga värden
-    fun areAllFieldsValid(stringsToMap: List<Map<String, String>>): List<Map<String, String>> {
-        return stringsToMap.filter { passport ->
+    fun areAllFieldsValid(MapList: List<Map<String, String>>): List<Map<String, String>> {
+        return MapList.filter { passport ->
             val isValidByr = "byr" in passport.keys && isValidByr(passport["byr"].toString())
             val isValidIyr = "iyr" in passport.keys && isValidIyr(passport["iyr"].toString())
             val isValidEyr = "eyr" in passport.keys && isValidEyr(passport["eyr"].toString())
@@ -105,7 +105,7 @@ fun main() {
         { passport -> field in passport.keys && validator(passport[field].toString()) }
 
     //version med Högre ordningens funktion
-    fun areAllFieldsValid2(stringsToMap: List<Map<String, String>>): List<Map<String, String>> {
+    fun areAllFieldsValid2(MapList: List<Map<String, String>>): List<Map<String, String>> {
 
         // Skapa en lista av alla valideringsfunktioner
         val validations = listOf(
@@ -118,7 +118,7 @@ fun main() {
             validateField("pid", ::isValidPid)
         )
 
-        return stringsToMap.filter { passport ->
+        return MapList.filter { passport ->
             validations.all { validation -> validation(passport) }
         }
     }
