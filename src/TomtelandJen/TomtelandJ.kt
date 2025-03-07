@@ -56,12 +56,11 @@ fun main() {
     //Exempel på anrop till den rekursiva funktionen getUnderlings,
     // här är tanken att hitta Tröger underlydande
     //listan fylls på successivt när vi rekurserar
-
     val tomteland = TomtelandJ()
 
     var butterList: MutableList<String> = mutableListOf()
     println(tomteland.getUnderlingsJ("Butter", butterList))
-    var skumtomteList: MutableList<String> = mutableListOf()
-    println(tomteland.getUnderlingsJ("Skumtomten", skumtomteList))
+    var skumtomtenList: MutableList<String> = mutableListOf()
+    println(tomteland.getUnderlingsJ("Skumtomten", skumtomtenList))
 
 }

@@ -1,12 +1,5 @@
 package Aoc2020Dec04
 
-import AdventReader
-
-val path2 = "src/AoCData/AoC2020Dec04"
-val adventReader2 = AdventReader()
-//konverterar listan från List String till String separerad med radbrytningar för att kunna splitta den sen
-var adventInput2 = adventReader2.returnFile2(path2).joinToString("\n")
-
 
 //regex separerar varje pass i en lista baserat på att de är åtskilda av två radbrytningar
 fun splitNewline1(): List<String> {
@@ -95,14 +88,15 @@ fun main() {
     }
     //räknar och skriver ut antalet giltiga pass
     val validPassList = areAllFieldsValid(stringsToMap)
-    println(validPassList.size)
+    println("Metod 1: " + validPassList.size)
+
+    // Detta är vår högre ordningens funktion som tar ett fältnamn och en valideringsfunktion
+    // och returnerar en funktion som validerar ett specifikt fält i ett pass
+    fun validateField(field: String, validator: (String) -> Boolean): (Map<String, String>) -> Boolean =
+        { passport -> field in passport.keys && validator(passport[field].toString()) }
 
     //version med Högre ordningens funktion
     fun areAllFieldsValid2(stringsToMap: List<Map<String, String>>): List<Map<String, String>> {
-        // Detta är vår högre ordningens funktion som tar ett fältnamn och en valideringsfunktion
-        // och returnerar en funktion som validerar ett specifikt fält i ett pass
-        fun validateField(field: String, validator: (String) -> Boolean): (Map<String, String>) -> Boolean =
-            { passport -> field in passport.keys && validator(passport[field].toString()) }
 
         // Skapa en lista av alla valideringsfunktioner
         val validations = listOf(
@@ -120,7 +114,7 @@ fun main() {
         }
     }
 //räknar alla antal pass med valideringsfunktionerna
-   // println(areAllFieldsValid2(stringsToMap).count())
+    println("Metod 2: " + areAllFieldsValid2(stringsToMap).count())
 
 
 }
