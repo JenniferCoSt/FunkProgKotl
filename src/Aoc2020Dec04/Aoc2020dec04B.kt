@@ -1,6 +1,5 @@
 package Aoc2020Dec04
 
-
 //regex separerar varje pass i en lista baserat på att de är åtskilda av två radbrytningar
 fun splitNewline1(): List<String> {
     val regex = Regex("\n\n")
