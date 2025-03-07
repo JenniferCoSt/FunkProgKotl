@@ -45,7 +45,7 @@ fun isValidEcl(str: String) = str in setOf("amb", "blu", "brn", "gry", "grn", "h
 //kollar pss-id:t. Det behöver vara exakt 9 siffror.
     fun isValidPid(str: String): Boolean {
         val num = str.toLongOrNull() ?: return false //omvandlar strängen till long, om str inte är ett heltal blir det false
-        return str.length == 9 && num in 0..999999999 //kollar att heltaled är 9 tecken och i range.
+        return str.length == 9 && num in 0..999999999 //kollar att heltaletär 9 tecken och i range.
 
     }
 
