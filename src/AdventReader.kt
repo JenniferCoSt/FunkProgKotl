@@ -6,7 +6,4 @@ class AdventReader {
 
     fun returnFile(path: String): List<String> = File(path).readLines()
 
-
-
-
 }
