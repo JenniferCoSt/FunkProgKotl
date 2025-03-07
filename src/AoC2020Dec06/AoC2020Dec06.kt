@@ -2,6 +2,7 @@ package AoC2020Dec06
 
 import AdventReader
 
+//Advent of Code 6 December 2020
 class AoC2020Dec06 {
     val pathS = "src/AoCData/AoC2020Dec6"
     val adventReader = AdventReader()
@@ -15,9 +16,9 @@ class AoC2020Dec06 {
         var tempList = mutableListOf("")
         var counter = 1
 
-        for(line in adventList){
+        for (line in adventList) {
             tempList.add(line)
-            if(line.length == 0 || line == adventList.last()){
+            if (line.length == 0 || line == adventList.last()) {
                 adventMap.put(counter, tempList.toList())
                 counter++
                 tempList.clear()
@@ -32,29 +33,23 @@ class AoC2020Dec06 {
         var mapSet = mutableMapOf<Int, Set<Char>>()
         var counter = 1
         for (line in inputMap.values) {
-            var linesSet = line.flatMap {it.toSet()}.toSet()
+            var linesSet = line.flatMap { it.toSet() }.toSet()
             mapSet.put(counter, linesSet)
             counter++
         }
         return mapSet
     }
 
-    //Läser in en Map, från metoden ovan. För varje entry kollar den value-storlek och adderar till
-    // totalYesAnswers. Returnerar värdet av totalYesAnswers som är svaret på AoC 6 Dec 2020.
-    fun countYesAnswers(answersMap: Map<Int, Set<Char>>): Int {
-        var totalYesAnswers = 0
-        for(charLine in answersMap.values) {
-            totalYesAnswers += charLine.size
-        }
-        return totalYesAnswers
+    //Läser in en Map, från metoden ovan. För varje value kollar den value-storlek och adderar.
+    // Returnerar värdet av summan som är svaret på AoC 6 Dec 2020.
+    fun countYesAnswers(answersMap: Map<Int, Set<Char>>) = answersMap.values.sumOf { it.size }
+}
+
+    fun main() {
+        val advent = AoC2020Dec06()
+        //prinln nedan kan delas upp i aMap och bMap
+        //val aMap = advent.returnMap(advent.adventInput)
+        //val bMap = advent.returnDistinctAnswersInGroup(aMap)
+
+        println(advent.countYesAnswers(advent.returnDistinctAnswersInGroup(advent.returnMap(advent.adventInput))))
     }
-}
-
-fun main() {
-    val advent = AoC2020Dec06()
-    //prinln nedan kan delas upp i aMap och bMap
-    //val aMap = advent.returnMap(advent.adventInput)
-    //val bMap = advent.returnDistinctAnswersInGroup(aMap)
-
-    println(advent.countYesAnswers(advent.returnDistinctAnswersInGroup(advent.returnMap(advent.adventInput))))
-}
