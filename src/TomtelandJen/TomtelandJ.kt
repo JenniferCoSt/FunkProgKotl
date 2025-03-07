@@ -59,7 +59,9 @@ fun main() {
 
     val tomteland = TomtelandJ()
 
-    var list: MutableList<String> = mutableListOf()
-    println(tomteland.getUnderlingsJ("Skumtomten", list))
+    var butterList: MutableList<String> = mutableListOf()
+    println(tomteland.getUnderlingsJ("Butter", butterList))
+    var skumtomteList: MutableList<String> = mutableListOf()
+    println(tomteland.getUnderlingsJ("Skumtomten", skumtomteList))
 
 }
